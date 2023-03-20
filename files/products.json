@@ -1,0 +1,137 @@
+[
+  {
+    "id": 4,
+    "title": "Título3",
+    "description": "desc3",
+    "price": 150,
+    "thumbnail": "path imagen3",
+    "code": "Cod3",
+    "stock": 500
+  },
+  {
+    "id": 5,
+    "title": "Título4",
+    "description": "desc4",
+    "price": 200,
+    "thumbnail": "path imagen4",
+    "code": "Cod4",
+    "stock": 500
+  },
+  {
+    "id": 6,
+    "title": "Título5",
+    "description": "desc5",
+    "price": 250,
+    "thumbnail": "path imagen5",
+    "code": "Cod5",
+    "stock": 500
+  },
+  {
+    "id": 7,
+    "title": "Título6",
+    "description": "desc6",
+    "price": 300,
+    "thumbnail": "path imagen6",
+    "code": "Cod6",
+    "stock": 500
+  },
+  {
+    "id": 1679169296705,
+    "title": "Título7",
+    "description": "desc7",
+    "price": 350,
+    "thumbnail": "path imagen7",
+    "code": "Cod7",
+    "stock": 500
+  },
+  {
+    "id": 1679169296315,
+    "title": "Título8",
+    "description": "desc8",
+    "price": 400,
+    "thumbnail": "path imagen8",
+    "code": "Cod8",
+    "stock": 500
+  },
+  {
+    "id": 1679169296720,
+    "title": "titulo prueba",
+    "description": "descripcion prueba",
+    "price": 350,
+    "thumbnail": "imagen prueba",
+    "code": "cod321",
+    "stock": 654
+  },
+  {
+    "id": 1679169296721,
+    "title": "titulo de prueba",
+    "description": "descripcion prueba",
+    "price": 32,
+    "thumbnail": "imagen prueba",
+    "code": "cod3211",
+    "stock": 654
+  },
+  {
+    "id": 1679169296723,
+    "title": "titulo de prueba",
+    "description": "descripcion prueba",
+    "price": 32,
+    "thumbnail": "imagen prueba",
+    "code": "cod321a",
+    "stock": 654
+  },
+  {
+    "id": 1679169296725,
+    "title": "titulo de prueba",
+    "description": "descripcion prueba",
+    "price": 32,
+    "thumbnail": "imagen prueba",
+    "code": "cod321q",
+    "stock": 654
+  },
+  {
+    "id": 1679169301670,
+    "title": "titulo de prueba",
+    "description": "descripcion prueba",
+    "price": 32,
+    "thumbnail": "imagen prueba",
+    "code": "cod321w",
+    "stock": 654
+  },
+  {
+    "id": 1679169306430,
+    "title": "titulo de prueba",
+    "description": "descripcion prueba",
+    "price": 32,
+    "thumbnail": "imagen prueba",
+    "code": "cod321e",
+    "stock": 654
+  },
+  {
+    "id": 1679169310938,
+    "title": "titulo de prueba",
+    "description": "descripcion prueba",
+    "price": 32,
+    "thumbnail": "imagen prueba",
+    "code": "cod321r",
+    "stock": 654
+  },
+  {
+    "id": 1679170633690,
+    "title": "titulo de prueba",
+    "description": "descripcion prueba",
+    "price": 32,
+    "thumbnail": "imagen prueba",
+    "code": "cod321o",
+    "stock": 654
+  },
+  {
+    "id": 1679302666986,
+    "title": "titulo de prueba",
+    "description": "descripcion prueba",
+    "price": 32,
+    "thumbnail": "imagen prueba",
+    "code": "cod321p",
+    "stock": 654
+  }
+]
