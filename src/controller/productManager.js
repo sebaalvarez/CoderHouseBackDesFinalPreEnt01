@@ -11,29 +11,29 @@ class ProductManager {
     this.ruta = this.dirName + "/" + this.fileName;
     this.crearDirectorio(this.dirName);
     this.validarExistenciaArchivo(this.ruta);
-    this.arrayProductos = JSON.parse(fs.readFileSync(this.ruta, "utf-8"));
+    this.arrayP = JSON.parse(fs.readFileSync(this.ruta, "utf-8"));
   }
 
   crearDirectorio = async (directorio) => {
     try {
       await fs.promises.mkdir(directorio, { recursive: true });
     } catch (err) {
-      console.error(`ERROR al crear directorio: ${err}`);
+      console.error(`ERROR al crear directorio del producto: ${err}`);
     }
   };
 
   validarExistenciaArchivo = (ruta) => {
-    if (!fs.existsSync(ruta)) fs.writeFileSync(ruta, "[]");
+    try {
+      if (!fs.existsSync(ruta)) fs.writeFileSync(ruta, "[]");
+    } catch (err) {
+      console.error(`ERROR no se pudo crear el archivo del Producto: ${err}`);
+    }
   };
 
-  // addProduct = async (titulo, desc, precio, foto, codigo, unidades) => {
   addProduct = async (product) => {
     try {
       this.validarExistenciaArchivo(this.ruta);
-      if (
-        // this.validaIngresos(titulo, desc, precio, foto, codigo, unidades) == 0
-        this.validaIngresos(product)[0] == 0
-      ) {
+      if (this.validaIngresos(product)[0] == 0) {
         let prod = new Product(
           product.title,
           product.description,
@@ -43,15 +43,12 @@ class ProductManager {
           product.stock
         );
 
-        this.arrayProductos.push(prod);
+        this.arrayP.push(prod);
         console.log(`Se cargo el producto ${product.code}`);
-        await fs.promises.writeFile(
-          this.ruta,
-          JSON.stringify(this.arrayProductos)
-        );
+        await fs.promises.writeFile(this.ruta, JSON.stringify(this.arrayP));
       }
-    } catch (error) {
-      console.error(`ERROR agregando Productos: ${error}`);
+    } catch (err) {
+      console.error(`ERROR agregando Productos: ${err}`);
     }
   };
 
@@ -59,8 +56,8 @@ class ProductManager {
     try {
       this.validarExistenciaArchivo(this.ruta);
       return JSON.parse(await fs.promises.readFile(this.ruta, "utf-8"));
-    } catch (error) {
-      console.error(`ERROR obteniendo Productos: ${error}`);
+    } catch (err) {
+      console.error(`ERROR obteniendo Productos: ${err}`);
     }
   };
 
@@ -72,24 +69,17 @@ class ProductManager {
       for (const obj of arrayP) if (obj.id === id) prod = { ...obj };
 
       return prod;
-      // if (prod == undefined) {
-      //   return `No se encontró el producto con ID: ${id}`;
-      // } else {
-      //   return prod;
-      // }
-    } catch (error) {
-      console.error(`ERROR obteniendo Producto por ID: ${error}`);
+    } catch (err) {
+      console.error(`ERROR obteniendo Producto por ID: ${err}`);
     }
   };
 
-  // updateProductById = async (id, titulo, desc, precio, foto, cod, unid) => {
   updateProductById = async (product) => {
     try {
       this.validarExistenciaArchivo(this.ruta);
       let arryP = JSON.parse(await fs.promises.readFile(this.ruta, "utf-8"));
       for (const obj of arryP) {
         if (obj.id === product.id) {
-          // if (this.validaIngresos(titulo, desc, precio, foto, cod, unid) == 0) {
           if (this.validaIngresos(product)[0] == 0) {
             obj.title = product.title;
             obj.description = product.description;
@@ -102,8 +92,8 @@ class ProductManager {
       }
       await fs.promises.writeFile(this.ruta, JSON.stringify(arryP));
       console.log(`El producto id: ${id} fue actualizado correctamente`);
-    } catch (error) {
-      console.error(`ERROR actualizando Producto: ${error}`);
+    } catch (err) {
+      console.error(`ERROR actualizando Producto: ${err}`);
     }
   };
 
@@ -117,18 +107,17 @@ class ProductManager {
 
       await fs.promises.writeFile(this.ruta, JSON.stringify(arryNew));
       console.log(`El producto id: ${id} fue eliminado correctamente`);
-    } catch (error) {
-      console.log(`ERROR borrando Producto por ID: ${error}`);
+    } catch (err) {
+      console.log(`ERROR borrando Producto por ID: ${err}`);
     }
   };
 
   getProductByCode = (code) => {
-    for (const obj of this.arrayProductos) {
+    for (const obj of this.arrayP) {
       if (obj.code === code) return obj;
     }
   };
 
-  // validaIngresos = (titulo, desc, precio, foto, codigo, unidades) => {
   validaIngresos = (product) => {
     const arrReturn = new Array();
 

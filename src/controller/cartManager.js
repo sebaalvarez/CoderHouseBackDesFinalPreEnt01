@@ -18,12 +18,16 @@ class CartManager {
     try {
       await fs.promises.mkdir(dirName, { recursive: true });
     } catch (err) {
-      console.error(`ERROR al crear directorio: ${err}`);
+      console.error(`ERROR al crear directorio del carrito: ${err}`);
     }
   };
 
   validarExistenciaArchivo = (ruta) => {
-    if (!fs.existsSync(ruta)) fs.writeFileSync(ruta, "[]");
+    try {
+      if (!fs.existsSync(ruta)) fs.writeFileSync(ruta, "[]");
+    } catch (err) {
+      console.error(`ERROR al crear el archivo de carrito: ${err}`);
+    }
   };
 
   addCart = async () => {
@@ -35,8 +39,38 @@ class CartManager {
       this.arrayCarts.push(cart);
       console.log(`Se cargo el carrito`);
       await fs.promises.writeFile(this.ruta, JSON.stringify(this.arrayCarts));
-    } catch (error) {
-      console.error(`ERROR agregando Carrito: ${error}`);
+    } catch (err) {
+      console.error(`ERROR agregando Carrito: ${err}`);
+    }
+  };
+
+  addProductCar = async (cid, pid) => {
+    try {
+      let flag = 0;
+      let arrayC = JSON.parse(await fs.promises.readFile(this.ruta, "utf-8"));
+      for (const obj of arrayC) {
+        if (obj.id === cid) {
+          for (const ob of obj.products) {
+            if (ob.id === pid) {
+              console.log("Encontró el producto, suma cantidad");
+              ob.quantity++;
+              flag = 1;
+            }
+          }
+
+          if (flag === 0) {
+            console.log("No encontró el producto, lo agrega");
+            let newP = {
+              id: pid,
+              quantity: 1,
+            };
+            obj.products.push(newP);
+          }
+        }
+      }
+      await fs.promises.writeFile(this.ruta, JSON.stringify(arrayC));
+    } catch (err) {
+      console.error(`ERROR no se pudo agregar el producto al carrito ${err}`);
     }
   };
 
@@ -44,8 +78,8 @@ class CartManager {
     try {
       this.validarExistenciaArchivo(this.ruta);
       return JSON.parse(await fs.promises.readFile(this.ruta, "utf-8"));
-    } catch (error) {
-      console.error(`ERROR obteniendo los Carritos: ${error}`);
+    } catch (err) {
+      console.error(`ERROR obteniendo los Carritos: ${err}`);
     }
   };
 
@@ -57,8 +91,8 @@ class CartManager {
       for (const obj of arrayP) if (obj.id === id) prod = { ...obj };
 
       return prod;
-    } catch (error) {
-      console.error(`ERROR obteniendo el Carrito por ID: ${error}`);
+    } catch (err) {
+      console.error(`ERROR obteniendo el Carrito por ID: ${err}`);
     }
   };
 }
