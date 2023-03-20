@@ -14,6 +14,14 @@ class ProductManager {
     this.arrayProductos = JSON.parse(fs.readFileSync(this.ruta, "utf-8"));
   }
 
+  crearDirectorio = async (directorio) => {
+    try {
+      await fs.promises.mkdir(directorio, { recursive: true });
+    } catch (err) {
+      console.error(`ERROR al crear directorio: ${err}`);
+    }
+  };
+
   validarExistenciaArchivo = (ruta) => {
     if (!fs.existsSync(ruta)) fs.writeFileSync(ruta, "[]");
   };
@@ -153,14 +161,6 @@ class ProductManager {
         arrReturn[1] = "Validaciones OK";
         return arrReturn;
       }
-    }
-  };
-
-  crearDirectorio = async (directorio) => {
-    try {
-      await fs.promises.mkdir(directorio, { recursive: true });
-    } catch (err) {
-      console.error(`ERROR al crear directorio: ${err}`);
     }
   };
 }

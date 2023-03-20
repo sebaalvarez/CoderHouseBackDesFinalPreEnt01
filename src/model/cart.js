@@ -1,8 +1,8 @@
 class Cart {
   constructor() {
     this.id = Date.now();
-    products = [];
+    this.products = new Array();
   }
 }
 
-export default cart;
+export default Cart;
