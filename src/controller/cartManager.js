@@ -34,9 +34,7 @@ class CartManager {
     try {
       this.validarExistenciaArchivo(this.ruta);
 
-      let cart = new Cart();
-
-      this.arrayCarts.push(cart);
+      this.arrayCarts.push(new Cart());
       console.log(`Se cargo el carrito`);
       await fs.promises.writeFile(this.ruta, JSON.stringify(this.arrayCarts));
     } catch (err) {
@@ -47,19 +45,21 @@ class CartManager {
   addProductCar = async (cid, pid) => {
     try {
       let flag = 0;
+      this.validarExistenciaArchivo(this.ruta);
       let arrayC = JSON.parse(await fs.promises.readFile(this.ruta, "utf-8"));
       for (const obj of arrayC) {
+        /** Encuentra el carrito con el id indicado */
         if (obj.id === cid) {
           for (const ob of obj.products) {
+            /* Encuentra el producto en el carrito => suma cantidad */
             if (ob.id === pid) {
-              console.log("Encontró el producto, suma cantidad");
               ob.quantity++;
               flag = 1;
             }
           }
 
+          /* No encuentra el producto en el carrito => lo agrega */
           if (flag === 0) {
-            console.log("No encontró el producto, lo agrega");
             let newP = {
               id: pid,
               quantity: 1,
@@ -74,6 +74,7 @@ class CartManager {
     }
   };
 
+  /*
   getCarts = async () => {
     try {
       this.validarExistenciaArchivo(this.ruta);
@@ -82,6 +83,7 @@ class CartManager {
       console.error(`ERROR obteniendo los Carritos: ${err}`);
     }
   };
+*/
 
   getCartById = async (id) => {
     try {

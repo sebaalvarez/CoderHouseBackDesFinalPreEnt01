@@ -7,7 +7,7 @@
 	},
 	"item": [
 		{
-			"name": "Products Todos",
+			"name": "Products Get All",
 			"request": {
 				"method": "GET",
 				"header": [],
@@ -27,12 +27,12 @@
 			"response": []
 		},
 		{
-			"name": "Products Todos con limit",
+			"name": "Products Get con limit",
 			"request": {
 				"method": "GET",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/products?limit=1",
+					"raw": "localhost:8080/api/products?limit=8",
 					"host": [
 						"localhost"
 					],
@@ -44,7 +44,7 @@
 					"query": [
 						{
 							"key": "limit",
-							"value": "1"
+							"value": "8"
 						}
 					]
 				}
@@ -52,7 +52,7 @@
 			"response": []
 		},
 		{
-			"name": "Products por Id",
+			"name": "Products Get por Id",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -64,7 +64,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:8080/api/products/4",
+					"raw": "localhost:8080/api/products/5",
 					"host": [
 						"localhost"
 					],
@@ -72,20 +72,20 @@
 					"path": [
 						"api",
 						"products",
-						"4"
+						"5"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Products Carga",
+			"name": "Products Add",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"body": {
 					"mode": "raw",
-					"raw": "{\n    \"title\": \"titulo de prueba\",\n    \"description\":\"descripcion prueba\",\n    \"price\":243,\n    \"thumbnail\":\"imagen prueba\",\n    \"code\":\"cod321e\",\n    \"stock\":654\n}",
+					"raw": "{\n    \"title\": \"titulo de prueba\",\n    \"description\":\"descripcion prueba\",\n    \"price\":243,\n    \"thumbnail\":[\"imagen prueba3\",\"imagen prueba13\",\"imagen prueba 23\"],\n    \"code\":\"cod321l\",\n    \"stock\":654,\n    \"status\":true,\n    \"category\":\"cosmetic\"\n}",
 					"options": {
 						"raw": {
 							"language": "json"
@@ -108,12 +108,21 @@
 			"response": []
 		},
 		{
-			"name": "Products por Id",
+			"name": "Products Update por Id",
 			"request": {
-				"method": "DELETE",
+				"method": "PUT",
 				"header": [],
+				"body": {
+					"mode": "raw",
+					"raw": "{\n    \"title\": \"titulo de prueba\",\n    \"description\":\"descripcion prueba\",\n    \"price\":243,\n    \"thumbnail\":[\"imagen prueba\"],\n    \"code\":\"cod321s\",\n    \"stock\":654,\n    \"status\":true,\n    \"category\":\"cosmetic\"\n}",
+					"options": {
+						"raw": {
+							"language": "json"
+						}
+					}
+				},
 				"url": {
-					"raw": "localhost:8080/api/products/3",
+					"raw": "localhost:8080/api/products/1",
 					"host": [
 						"localhost"
 					],
@@ -121,7 +130,27 @@
 					"path": [
 						"api",
 						"products",
-						"3"
+						"1"
+					]
+				}
+			},
+			"response": []
+		},
+		{
+			"name": "Products Delete por Id",
+			"request": {
+				"method": "DELETE",
+				"header": [],
+				"url": {
+					"raw": "localhost:8080/api/products/15",
+					"host": [
+						"localhost"
+					],
+					"port": "8080",
+					"path": [
+						"api",
+						"products",
+						"15"
 					],
 					"query": [
 						{
@@ -135,52 +164,7 @@
 			"response": []
 		},
 		{
-			"name": "Carts Todos",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/carts/",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"carts",
-						""
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Carts Todos con limit",
-			"request": {
-				"method": "GET",
-				"header": [],
-				"url": {
-					"raw": "localhost:8080/api/carts?limit=23",
-					"host": [
-						"localhost"
-					],
-					"port": "8080",
-					"path": [
-						"api",
-						"carts"
-					],
-					"query": [
-						{
-							"key": "limit",
-							"value": "23"
-						}
-					]
-				}
-			},
-			"response": []
-		},
-		{
-			"name": "Carts por Id",
+			"name": "Carts Get por Id",
 			"protocolProfileBehavior": {
 				"disableBodyPruning": true
 			},
@@ -192,7 +176,7 @@
 					"raw": ""
 				},
 				"url": {
-					"raw": "localhost:8080/api/carts/1679347045168",
+					"raw": "localhost:8080/api/carts/1",
 					"host": [
 						"localhost"
 					],
@@ -200,14 +184,14 @@
 					"path": [
 						"api",
 						"carts",
-						"1679347045168"
+						"1"
 					]
 				}
 			},
 			"response": []
 		},
 		{
-			"name": "Carts Carga",
+			"name": "Carts Add",
 			"request": {
 				"method": "POST",
 				"header": [],
@@ -227,12 +211,12 @@
 			"response": []
 		},
 		{
-			"name": "Carts Carga Producto en el Carrito",
+			"name": "Carts Add Producto",
 			"request": {
 				"method": "POST",
 				"header": [],
 				"url": {
-					"raw": "localhost:8080/api/carts/2/products/3",
+					"raw": "localhost:8080/api/carts/1/product/7",
 					"host": [
 						"localhost"
 					],
@@ -240,9 +224,9 @@
 					"path": [
 						"api",
 						"carts",
-						"2",
-						"products",
-						"3"
+						"1",
+						"product",
+						"7"
 					]
 				}
 			},

@@ -31,14 +31,14 @@ router.get("/:pid", async (req, res) => {
 });
 
 /***   Carga producto ***/
-router.post("/", (req, res) => {
+router.post("/", async (req, res) => {
   let user = req.body;
   let arrVali = pm.validaIngresos(user);
 
   if (arrVali[0] === 1) {
     res.status(400).send({ status: "Error", message: arrVali[1] });
   } else {
-    pm.addProduct(user);
+    await pm.addProduct(user);
     res.status(200).send({
       status: "Success",
       message: `Se cargo el producto Cod: ${user.code}`,
@@ -46,9 +46,25 @@ router.post("/", (req, res) => {
   }
 });
 
+router.put("/:pid", async (req, res) => {
+  let user = req.body;
+  let pid = parseInt(req.params.pid);
+  let arrVali = pm.validaIngresos(user);
+
+  if (arrVali[0] === 1) {
+    res.status(400).send({ status: "Error", message: arrVali[1] });
+  } else {
+    await pm.updateProductById(pid, user);
+    res.status(200).send({
+      status: "Success",
+      message: `Se actualizó el producto Id: ${pid}`,
+    });
+  }
+});
+
 /***   Elimina producto por ID ***/
-router.delete("/:pid", (req, res) => {
-  pm.deleteProductoById(parseInt(req.params.pid));
+router.delete("/:pid", async (req, res) => {
+  await pm.deleteProductoById(parseInt(req.params.pid));
   res.status(200).send({
     status: "Success",
     message: `Se eliminó el producto ID: ${req.params.pid}`,

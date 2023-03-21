@@ -40,7 +40,9 @@ class ProductManager {
           product.price,
           product.thumbnail,
           product.code,
-          product.stock
+          product.stock,
+          product.status,
+          product.category
         );
 
         this.arrayP.push(prod);
@@ -74,19 +76,21 @@ class ProductManager {
     }
   };
 
-  updateProductById = async (product) => {
+  updateProductById = async (id, product) => {
     try {
       this.validarExistenciaArchivo(this.ruta);
       let arryP = JSON.parse(await fs.promises.readFile(this.ruta, "utf-8"));
       for (const obj of arryP) {
-        if (obj.id === product.id) {
+        if (obj.id === id) {
           if (this.validaIngresos(product)[0] == 0) {
             obj.title = product.title;
             obj.description = product.description;
             obj.price = product.price;
-            obj.thumbnail = product.thumbnail;
+            obj.thumbnail = [...product.thumbnail];
             obj.code = product.code;
             obj.stock = product.stock;
+            obj.status = product.status;
+            obj.category = product.category;
           }
         }
       }
@@ -113,14 +117,10 @@ class ProductManager {
   };
 
   getProductByCode = (code) => {
-    for (const obj of this.arrayP) {
-      if (obj.code === code) return obj;
-    }
+    for (const obj of this.arrayP) if (obj.code === code) return obj;
   };
 
   validaIngresos = (product) => {
-    const arrReturn = new Array();
-
     if (
       product.title == "" ||
       product.description == "" ||
@@ -128,29 +128,29 @@ class ProductManager {
       product.thumbnail == "" ||
       product.code == "" ||
       product.stock == "" ||
+      product.status == "" ||
+      product.category == ""
+    ) {
+      return [1, "Existen parámetros de ingreso en blanco"];
+    }
+    if (
       product.title == undefined ||
       product.description == undefined ||
       product.price == undefined ||
       product.thumbnail == undefined ||
       product.code == undefined ||
-      product.stock == undefined
+      product.stock == undefined ||
+      product.status == undefined ||
+      product.category == undefined
     ) {
-      console.log("Existen errores en los parámetros de ingreso");
-      arrReturn[0] = 1;
-      arrReturn[1] = "Existen errores en los parámetros de ingreso";
-      return arrReturn;
-    } else {
-      if (this.getProductByCode(product.code) != undefined) {
-        console.log(`El código ${product.code} ya existe para otro producto`);
-        arrReturn[0] = 1;
-        arrReturn[1] = `El código ${product.code} ya existe para otro producto`;
-        return arrReturn;
-      } else {
-        arrReturn[0] = 0;
-        arrReturn[1] = "Validaciones OK";
-        return arrReturn;
-      }
+      return [1, "Faltan parámetros de ingreso"];
     }
+
+    if (this.getProductByCode(product.code) != undefined) {
+      return [1, `El código ${product.code} ya existe para otro producto`];
+    }
+
+    return [0, "Validaciones OK"];
   };
 }
 
